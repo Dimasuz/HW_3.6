@@ -1,6 +1,6 @@
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
-from models import create_tables, load_tables, Publisher
+from models import create_tables, load_tables, Publisher, Book, Stock, Shop
 
 def main():
     print('Для подключения к БД,')
@@ -36,6 +36,11 @@ def main():
     if pub != '':
        for c in session.query(Publisher).filter(Publisher.name == pub).all():
             print(f'Id издателя с именем"{c.name}" - {c.id}.')
+
+    pub = input('Для поиска магазинов, где продаются книги издателя введите его имя или нажмите Enter: ')
+    if pub != '':
+        for c in session.query(Shop).join(Stock).join(Book).join(Publisher).filter(Publisher.name == pub).all():
+            print(f'Название магазина: {c.name}')
 
     session.close()
 

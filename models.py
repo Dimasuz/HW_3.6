@@ -24,13 +24,13 @@ class Book(Base):
     title = sq.Column(sq.String(length=80), nullable=False)
     id_publisher = sq.Column(sq.Integer, sq.ForeignKey("publisher.id"), nullable=False)
     publisher = relationship(Publisher, backref="book")
-    shop = relationship(Stock, backref="book")
+    stock = relationship(Stock, backref="book")
 
 class Shop(Base):
     __tablename__ = "shop"
     id = sq.Column(sq.Integer, primary_key=True)
     name = sq.Column(sq.String(length=80))
-    book = relationship(Stock, backref="shop")
+    stock = relationship(Stock, backref="shop")
 
 class Sale(Base):
     __tablename__ = "sale"
